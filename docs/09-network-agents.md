@@ -39,21 +39,61 @@ graph TD
     Input2 --> Agent2
     Input3 --> Agent3
     
-    Agent1 -->|"publish event"| MessageBroker
-    Agent2 -->|"publish event"| MessageBroker
-    Agent3 -->|"publish event"| MessageBroker
+    Agent1 -->|"publish"| MB1[" "]
+    Agent2 -->|"publish"| MB2[" "]
+    Agent3 -->|"publish"| MB3[" "]
     
-    MessageBroker -->|"subscribe"| Agent1
-    MessageBroker -->|"subscribe"| Agent2
-    MessageBroker -->|"subscribe"| Agent3
+    MB1 --> MessageBroker
+    MB2 --> MessageBroker
+    MB3 --> MessageBroker
     
-    Agent1 <--> |"read/write"| StateStore
-    Agent2 <--> |"read/write"| StateStore
-    Agent3 <--> |"read/write"| StateStore
+    MessageBroker -->|"subscribe"| MS1[" "]
+    MessageBroker -->|"subscribe"| MS2[" "]
+    MessageBroker -->|"subscribe"| MS3[" "]
     
-    Agent1 --> Output
-    Agent2 --> Output
-    Agent3 --> Output
+    MS1 --> Agent1
+    MS2 --> Agent2
+    MS3 --> Agent3
+    
+    Agent1 -->|"read/write"| SS1[" "]
+    Agent2 -->|"read/write"| SS2[" "]
+    Agent3 -->|"read/write"| SS3[" "]
+    
+    SS1 --> StateStore
+    SS2 --> StateStore
+    SS3 --> StateStore
+    
+    StateStore --> SSR1[" "]
+    StateStore --> SSR2[" "]
+    StateStore --> SSR3[" "]
+    
+    SSR1 --> Agent1
+    SSR2 --> Agent2
+    SSR3 --> Agent3
+    
+    Agent1 --> O1[" "]
+    Agent2 --> O2[" "]
+    Agent3 --> O3[" "]
+    
+    O1 --> Output
+    O2 --> Output
+    O3 --> Output
+    
+    style MB1 fill:none,stroke:none
+    style MB2 fill:none,stroke:none
+    style MB3 fill:none,stroke:none
+    style MS1 fill:none,stroke:none
+    style MS2 fill:none,stroke:none
+    style MS3 fill:none,stroke:none
+    style SS1 fill:none,stroke:none
+    style SS2 fill:none,stroke:none
+    style SS3 fill:none,stroke:none
+    style SSR1 fill:none,stroke:none
+    style SSR2 fill:none,stroke:none
+    style SSR3 fill:none,stroke:none
+    style O1 fill:none,stroke:none
+    style O2 fill:none,stroke:none
+    style O3 fill:none,stroke:none
     
     style Agent1 fill:#e8f5e9,color:#000000
     style Agent2 fill:#e8f5e9,color:#000000

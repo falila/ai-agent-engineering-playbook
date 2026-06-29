@@ -23,13 +23,13 @@ graph TD
     H --> I["🧹 Cleanup<br/>Release Resources<br/>Final Logging"]
     I --> J["✅ Complete"]
     
-    C -.->|Failure| K["❌ Error Handler"]
-    D -.->|Failure| K
+    D -.->|Failure| K["❌ Error Handler"]
     E -.->|Failure| K
     F -.->|Failure| K
-    K --> L{{"Retry<br/>Policy"}}
-    L -->|Retry| C
-    L -->|Fail| M["🚨 Escalate"]
+    K --> L{{"Retry?"}}  
+    L -->|Yes| Z[" "]
+    L -->|No| M["🚨 Escalate"]
+    Z --> C
     M --> I
     
     style A fill:#e3f2fd,color:#000000

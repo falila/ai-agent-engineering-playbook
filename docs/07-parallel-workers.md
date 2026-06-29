@@ -18,10 +18,15 @@ graph TD
     B --> C3["Worker 3"]
     B --> C4["Worker N"]
     
-    C1 --> D["⏳ Wait All<br/>Barrier Sync"]
-    C2 --> D
-    C3 --> D
-    C4 --> D
+    C1 --> D1[" "]
+    C2 --> D2[" "]
+    C3 --> D3[" "]
+    C4 --> D4[" "]
+    
+    D1 --> D["⏳ Wait All<br/>Barrier Sync"]
+    D2 --> D
+    D3 --> D
+    D4 --> D
     
     D --> E["🔗 Merge<br/>Combine Results"]
     E --> F["📤 Output"]
@@ -29,6 +34,11 @@ graph TD
     B -.-> G["📋 Task List"]
     D -.-> H["⏳ Result Buffer"]
     E -.-> I["📋 Merge Logic"]
+    
+    style D1 fill:none,stroke:none
+    style D2 fill:none,stroke:none
+    style D3 fill:none,stroke:none
+    style D4 fill:none,stroke:none
 
     style A fill:#e3f2fd,color:#000000
     style B fill:#fff3e0,color:#000000

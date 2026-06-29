@@ -44,9 +44,13 @@ graph TD
     StateManager --> |"Route task"| Worker2
     StateManager --> |"Route conditional"| Worker3
     
-    Worker1 --> ResultCache
-    Worker2 --> ResultCache
-    Worker3 --> ResultCache
+    Worker1 --> C1[" "]
+    Worker2 --> C2[" "]
+    Worker3 --> C3[" "]
+    
+    C1 --> ResultCache
+    C2 --> ResultCache
+    C3 --> ResultCache
     
     ResultCache --> Orchestrator
     
@@ -54,6 +58,10 @@ graph TD
     ErrorHandler -.->|"Recovery plan"| Orchestrator
     
     Orchestrator --> Output
+    
+    style C1 fill:none,stroke:none
+    style C2 fill:none,stroke:none
+    style C3 fill:none,stroke:none
     
     style Orchestrator fill:#e1f5ff,color:#000000
     style PlannerDecide fill:#f3e5f5,color:#000000

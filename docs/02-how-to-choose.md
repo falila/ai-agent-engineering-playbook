@@ -14,19 +14,31 @@ This document is a decision framework. Use the tree, pick the simplest pattern t
 graph TD
     A["Choose Your Pattern"] --> B{"Multiple<br/>Behaviors?"}
     B -->|No| C["🔵 Single Agent"]
-    B -->|Yes| D{"Tasks<br/>Run<br/>Parallel?"}
+    B -->|Yes| D{"Tasks Can<br/>Run<br/>Parallel?"}
     D -->|No| E{"Need<br/>Routing?"}
+    D -->|Yes| H{"Central<br/>Coordinator?"}
     E -->|No| F["🟢 Sequential<br/>Workflow"]
     E -->|Yes| G["🟠 Router<br/>Agent"]
-    D -->|Yes| H{"Central<br/>Coordinator?"}
     H -->|No| I["🔴 Parallel<br/>Workers"]
     H -->|Yes| J["🟣 Orchestrator"]
     
+    C -.-> K[" "]
+    F -.-> K
+    G -.-> K
+    I -.-> K
+    J -.-> K
+    
+    style A fill:#fff3e0,color:#000000
+    style B fill:#eeeeee,color:#000000
     style C fill:#b3e5fc,color:#000000
+    style D fill:#eeeeee,color:#000000
+    style E fill:#eeeeee,color:#000000
     style F fill:#c8e6c9,color:#000000
     style G fill:#ffe0b2,color:#000000
+    style H fill:#eeeeee,color:#000000
     style I fill:#f8bbd0,color:#000000
     style J fill:#e1bee7,color:#000000
+    style K fill:none,stroke:none
 ```
 
 ---

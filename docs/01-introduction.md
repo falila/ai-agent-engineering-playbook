@@ -62,21 +62,27 @@ Whether the loop repeats or terminates. This is the critical architectural decis
 ## Architecture Spectrum
 
 ```mermaid
-graph LR
+graph TD
     A["🔵 Simple<br/>Single Agent<br/>Fixed Loop"] -->|Complexity| B["🟠 Moderate<br/>Router / Sequential<br/>Coordination"]
     B -->|Complexity| C["🔴 Complex<br/>Orchestrator / Network<br/>Distributed State"]
     
-    A -->|Latency| D["Low"]
-    B -->|Latency| E["Medium"]
-    C -->|Latency| F["High"]
+    A --> D["Low Latency"] 
+    B --> E["Medium Latency"]
+    C --> F["High Latency"]
     
-    A -->|Reliability| G["Simpler Failure Modes"]
-    B -->|Reliability| H["More Failure Points"]
-    C -->|Reliability| I["Complex Distributed Issues"]
+    A --> G["Simple Failure"] 
+    B --> H["Complex Failures"]
+    C --> I["Distributed Issues"]
     
     style A fill:#e3f2fd,color:#000000
     style B fill:#fff8e1,color:#000000
     style C fill:#ffebee,color:#000000
+    style D fill:#c5cae9,color:#000000
+    style E fill:#c5cae9,color:#000000
+    style F fill:#c5cae9,color:#000000
+    style G fill:#c5cae9,color:#000000
+    style H fill:#c5cae9,color:#000000
+    style I fill:#c5cae9,color:#000000
 ```
 
 ---
