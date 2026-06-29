@@ -110,6 +110,95 @@ This playbook covers 13 core architecture patterns:
 
 ---
 
+---
+
+## References & Resources
+
+The patterns in this playbook are informed by research, production systems, and open-source implementations. Here are the key resources:
+
+### Research Papers & Frameworks
+
+**Agent Architecture & Workflows:**
+- [ReAct: Synergizing Reasoning and Acting in LLMs](https://arxiv.org/abs/2210.03629) — Foundation for agent loops
+- [AutoGPT & Agent Frameworks](https://github.com/Significant-Gravitas/AutoGPT) — Early agentic patterns
+- [OpenAI Function Calling Cookbook](https://cookbook.openai.com/) — Tool use and structured outputs
+- [LLM-as-Judge Papers](https://arxiv.org/abs/2310.05470) — Routing and decision making with LLMs
+
+**Multi-Agent Systems:**
+- [Microsoft AutoGen](https://microsoft.github.io/autogen/) — Orchestration patterns
+- [CrewAI Framework](https://docs.crewai.com/) — Role-based agent coordination
+- [LangChain Multi-Agent](https://python.langchain.com/docs/modules/agents/) — Production agent patterns
+
+### Production Documentation
+
+**Model Providers:**
+- [OpenAI API Reference](https://platform.openai.com/docs/api-reference) — Function calling, vision, structured outputs
+- [Anthropic Claude Documentation](https://docs.anthropic.com/) — Agentic intelligence, tool use
+- [Google Gemini API](https://ai.google.dev/docs) — Multi-modal agents
+- [Together AI Inference](https://www.together.ai/) — Open-source model serving
+
+**Observability & Monitoring:**
+- [Langfuse](https://langfuse.com/) — LLM observability and tracing
+- [LiteLLM Proxy](https://docs.litellm.ai/) — Cost tracking and routing
+- [OpenTelemetry](https://opentelemetry.io/) — Distributed tracing standards
+
+### Frameworks & Libraries
+
+**Agent Orchestration:**
+- [LangChain](https://python.langchain.com/) — Agent building and chains
+- [LlamaIndex](https://docs.llamaindex.ai/) — Data indexing and retrieval agents
+- [Pydantic AI](https://ai.pydantic.dev/) — Type-safe agent building
+- [Swarm (OpenAI)](https://github.com/openai/swarm) — Lightweight agent coordination
+
+**Memory & State:**
+- [Redis](https://redis.io/) — In-memory state store
+- [PostgreSQL with pgvector](https://github.com/pgvector/pgvector) — Semantic search and persistence
+- [Pinecone](https://www.pinecone.io/) — Vector database for memory retrieval
+- [Weaviate](https://weaviate.io/) — Open-source vector DB
+
+### System Design & Architecture
+
+**Distributed Systems:**
+- [The Phoenix Project](https://itrevolution.com/product/the-phoenix-project/) — Production operations
+- [Site Reliability Engineering](https://sre.google/sre-book/) — Google's reliability patterns
+- [Designing Data-Intensive Applications](https://dataintensive.net/) — System design fundamentals
+
+**AI Operations:**
+- [MLOps.community](https://mlops.community/) — Best practices for production AI
+- [Chip Huyen's ML Systems Design](https://huyenchip.com/) — Real-world ML systems
+
+### Benchmarks & Evaluation
+
+**Agent Evaluation:**
+- [GAIA Benchmark](https://huggingface.co/gaia-benchmark/) — General assistant performance
+- [SWE-bench](https://www.swebench.com/) — Software engineering agent tasks
+- [ToolUse Benchmarks](https://arxiv.org/abs/2309.15766) — Function calling evaluation
+
+### Case Studies & Implementation Examples
+
+**Real Production Systems:**
+- [OpenAI Assistants API](https://platform.openai.com/docs/assistants/overview) — Production agent patterns
+- [GitHub Copilot Architecture](https://github.blog/2023-06-20-how-github-copilot-is-getting-better-at-tackling-coding-tasks/) — Large-scale agent deployment
+- [AWS Bedrock Agents](https://aws.amazon.com/bedrock/agents/) — Enterprise orchestration
+
+**Open Source Examples:**
+- [LangSmith Examples](https://github.com/langchain-ai/langsmith-cookbook) — Production patterns
+- [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook) — Implementation guides
+- [OpenAI Cookbook Agents](https://cookbook.openai.com/examples/agents) — Real-world agent examples
+
+### Performance & Optimization
+
+**Cost Optimization:**
+- [LiteLLM Cost Calculator](https://cost-calculator.litellm.ai/) — Model pricing comparison
+- [Prompt Caching](https://help.openai.com/en/articles/7505499-managing-tokens-and-costs) — Reduce redundant compute
+
+**Latency & Throughput:**
+- [Ray Serve](https://docs.ray.io/en/latest/serve/index.html) — Distributed model serving
+- [vLLM](https://github.com/vllm-project/vllm) — High-throughput LLM inference
+- [Anyscale](https://www.anyscale.com/) — Production inference platform
+
+---
+
 ## License
 
 MIT — Use, modify, and distribute freely.
