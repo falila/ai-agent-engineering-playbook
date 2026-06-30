@@ -21,26 +21,26 @@ This document covers **how to design state systems** that are recoverable, obser
 
 ```mermaid
 graph TD
-    Agent["\ud83e\udde0 Agent<br/>Processing"]
+    Agent["Agent<br/>Processing"]
     
-    Input["\ud83d\udce5 Input:<br/>Event/Request"]
+    Input["Input:<br/>Event/Request"]
     
     Input --> Agent
     
-    Agent --> Decide["\ud83e\udde0 Reason<br/>Update Needed?"]
-    Decide --> StateStore["\ud83d\udcbe State Store<br/>(Source of Truth)"]
+    Agent --> Decide["Reason<br/>Update Needed?"]
+    Decide --> StateStore["State Store<br/>(Source of Truth)"]
     
-    StateStore --> Retrieve["\ud83d\udd0d Read<br/>Current State"]
+    StateStore --> Retrieve["Read<br/>Current State"]
     Retrieve --> Agent
     
-    Agent --> Action["\u2699\ufe0f Execute<br/>Action"]
-    Action --> Update["\ud83d\udcbe Write<br/>New State"]
+    Agent --> Action["Execute<br/>Action"]
+    Action --> Update["Write<br/>New State"]
     Update --> StateStore
     
-    StateStore --> Snapshot["\ud83d\udcbe Snapshot<br/>(Checkpoint)"]
-    StateStore --> Journal["\ud83d\udcbe Event Log<br/>(Audit Trail)"]
+    StateStore --> Snapshot["Snapshot<br/>(Checkpoint)"]
+    StateStore --> Journal["Event Log<br/>(Audit Trail)"]
     
-    Snapshot --> Output["\ud83d\udce4 Output:<br/>Result + State\"]
+    Snapshot --> Output["Output:<br/>Result + State"]
     Journal --> Output
     
     style Agent fill:#fff3e0,color:#000000
