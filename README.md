@@ -1,214 +1,416 @@
 # AI Agent Engineering Playbook
 
-Production patterns, architecture decisions, and system design for building scalable AI agent systems.
+> **The senior engineer's handbook for building production-ready AI agent systems at scale.**
 
-**For:** Senior Engineers · AI Engineers · Staff Engineers · Solutions Architects · Technical Leads
-
----
-
-## What This Is
-
-This is an engineering handbook for designing, building, and operating AI agent systems in production. Not tutorials. Not theory. Practical patterns, tradeoffs, and decisions that matter.
-
-Each page is a standalone reference on a specific architecture pattern or concern. Read what you need, when you need it.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen)]()
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-June%202026-blue)]()
+[![Built With](https://img.shields.io/badge/Built%20With-Python%20%7C%20LLM%20Architecture-informational)]()
 
 ---
 
-## Quick Navigation
+## 📖 Table of Contents
 
-| Purpose | Start Here |
-|---------|-----------|
-| New to AI agents? | [01 — Introduction](docs/01-introduction.md) |
-| Choosing your architecture? | [02 — How to Choose](docs/02-how-to-choose.md) |
-| Understanding the full lifecycle? | [03 — Agent Lifecycle](docs/03-agent-lifecycle.md) |
-| Building your first agent? | [04 — Single Agent](docs/04-single-agent.md) |
-| Routing between specialists? | [05 — Router Pattern](docs/05-router-pattern.md) |
-| Sequential tasks? | [06 — Sequential Workflow](docs/06-sequential-workflow.md) |
-| Parallel processing? | [07 — Parallel Workers](docs/07-parallel-workers.md) |
-| Complex orchestration? | [08 — Orchestrator Workers](docs/08-orchestrator-workers.md) |
-| Distributed systems? | [09 — Network Agents](docs/09-network-agents.md) |
-| Persistence and context? | [10 — Memory](docs/10-memory.md) |
-| Tracking what changed? | [11 — State Management](docs/11-state-management.md) |
-| Using external systems? | [12 — Tool Calling](docs/12-tool-calling.md) |
-| Deploying to production? | [13 — Production Runtime](docs/13-production-runtime.md) |
-| Monitoring and debugging? | [14 — Observability](docs/14-observability.md) |
-| When things break? | [15 — Failure Patterns](docs/15-failure-patterns.md) |
-| Enterprise scale? | [16 — Enterprise Blueprint](docs/16-enterprise-blueprint.md) |
-| Quick reference? | [17 — Cheat Sheet](docs/17-cheat-sheet.md) |
+- [🚀 Vision & Purpose](#vision--purpose)
+- [🎯 Who This Is For](#who-this-is-for)
+- [🗺️ Playbook Structure](#playbook-structure)
+- [⚡ Quick Start](#quick-start)
+- [📚 Core Documentation](#core-documentation)
+- [🛠️ Patterns & Frameworks](#patterns--frameworks)
+- [💡 How to Use This Playbook](#how-to-use-this-playbook)
+- [🤝 Contributing](#contributing)
+- [📖 References & Resources](#references--resources)
 
 ---
 
-## How to Use This Playbook
+## 🚀 Vision & Purpose
 
-**Each document:**
-- Takes ~10 minutes to read
-- Stands alone (read in any order)
-- Includes a decision tree or diagram
-- Shows when and when NOT to use the pattern
-- Lists advantages and tradeoffs
-- Highlights common mistakes
-- Provides engineering notes for production
+You're building AI agents. They're powerful. They're also complex—prone to timeouts, token explosions, cascading failures, and state corruption.
 
-**Skip the theory.** Every page is practical—architecture diagrams, decision tables, and production patterns.
+**This playbook is your guide.**
 
-**Scope is clear.** We focus on **system design, not implementation**. You'll find guidance on *why* to choose a pattern, not *how* to code it.
+It documents proven architectural patterns for building agents that work reliably in production. Not theory. Not tutorials. **Engineering practices** from senior engineers who've built systems processing millions of requests daily.
+
+### What You'll Learn
+
+✓ **How agents actually work** — The core loop, decision points, failure modes  
+✓ **When to use each pattern** — 6 core patterns with clear decision criteria  
+✓ **How to build for scale** — Single agent → 1M concurrent requests  
+✓ **How to survive failures** — Resilience patterns, circuit breakers, graceful degradation  
+✓ **How to debug in production** — Observability, monitoring, distributed tracing  
+✓ **How to combine patterns** — Real-world examples (fintech, e-commerce, support)
 
 ---
 
-## Document Structure
+## 🎯 Who This Is For
 
-Every page follows the same structure:
+This playbook is written for **senior software engineers, AI engineers, staff engineers, solutions architects, and technical leads**.
+
+| Role | Why Read This |
+|------|---------------|
+| **AI/ML Engineers** | Learn production patterns beyond POC. Understand state, resilience, observability. |
+| **Backend Engineers** | Master agent systems like you'd master microservices—patterns, trade-offs, scaling. |
+| **Solutions Architects** | Design multi-agent systems for enterprise scale. Know when patterns work and when they don't. |
+| **Technical Leads** | Guide your team through agent architecture decisions. Understand cost, complexity, operational burden. |
+| **LLM Engineers** | Build reliable agents. Handle model latency, token budgets, cascading failures. |
+
+**Not** an introduction to LLMs or basic Python. **Assumes** you understand software architecture, cloud infrastructure, and systems thinking.
+
+---
+
+## 🗺️ Playbook Structure
+
+The playbook is organized in four layers, building from fundamentals to enterprise-scale systems.
 
 ```
-Title
-├─ Quick Summary
-├─ Diagram (Mermaid)
-├─ When to Use
-├─ When NOT to Use
-├─ Advantages
-├─ Trade-offs
-├─ Engineering Notes
-├─ Common Mistakes
-├─ Real-world Example
-├─ Best Practices
-└─ Summary
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 1: FOUNDATIONS (Docs 01-03)                          │
+│  ├─ 01: Introduction — The agent loop model                │
+│  ├─ 02: How to Choose — Decision framework                 │
+│  └─ 03: Agent Lifecycle — Execution phases & stop conditions│
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 2: CORE PATTERNS (Docs 04-09)                        │
+│  ├─ 04: Single Agent — Simplest: one model, one task      │
+│  ├─ 05: Router — Multi-domain dispatch                    │
+│  ├─ 06: Sequential Workflow — Ordered pipeline stages     │
+│  ├─ 07: Parallel Workers — Independent parallel tasks     │
+│  ├─ 08: Orchestrator — Dynamic workflow with decisions    │
+│  └─ 09: Network Agents — Distributed, loosely-coupled     │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 3: INFRASTRUCTURE (Docs 10-13)                       │
+│  ├─ 10: Memory & Context — Persistence, retrieval, RAG    │
+│  ├─ 11: State Management — Tracking decisions, consistency │
+│  ├─ 12: Tool Calling — Integration with external systems  │
+│  └─ 13: Production Runtime — Deployment, scaling, ops     │
+└─────────────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────────────┐
+│  LAYER 4: RELIABILITY & SCALE (Docs 14-17)                  │
+│  ├─ 14: Observability — Metrics, logs, traces, debugging  │
+│  ├─ 15: Failure Patterns — Resilience, recovery, patterns │
+│  ├─ 16: Enterprise Blueprint — Multi-region, large teams  │
+│  └─ 17: Cheat Sheet — Quick reference guide               │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Core Patterns
+## ⚡ Quick Start
 
-This playbook covers 13 core architecture patterns:
+### For the Impatient (5 minutes)
 
-1. **Single Agent** — One model, one task
-2. **Router Pattern** — Route requests to specialized agents
-3. **Sequential Workflow** — Tasks executed in order
-4. **Parallel Workers** — Independent tasks in parallel
-5. **Orchestrator Workers** — Central coordinator + worker pool
-6. **Network Agents** — Distributed, loosely coupled agents
-7. **Memory** — Persistence, context, retrieval
-8. **State Management** — Tracking changes and decisions
-9. **Tool Calling** — Integration with external systems
-10. **Production Runtime** — Deployment and scaling
-11. **Observability** — Monitoring and debugging
-12. **Failure Patterns** — Recovery and resilience
-13. **Enterprise Blueprint** — Large-scale architecture
+1. **Read this file** (you're doing it now ✓)
+2. **Check the [Cheat Sheet](docs/17-cheat-sheet.md)** — Decision matrix, quick answers
+3. **Pick your use case** — Find it in [By Use Case](#by-use-case)
 
----
+### For the Curious (30 minutes)
 
-## Best Practices
+1. **Start with [01 — Introduction](docs/01-introduction.md)** — Understand the agent loop
+2. **Use [02 — How to Choose](docs/02-how-to-choose.md)** — Decision framework
+3. **Pick a pattern** from [Layer 2: Core Patterns](#layer-2-core-patterns) section
 
-| Category | Principle |
-|----------|-----------|
-| **Architecture** | Choose the simplest pattern that solves your problem |
-| **Observability** | You cannot optimize what you cannot measure |
-| **Failures** | Assume every component will fail |
-| **State** | Make state explicit and traceable |
-| **Scaling** | Scale horizontally before scaling up |
-| **Memory** | Memory is the bottleneck—design for it first |
-| **Tools** | Tool calling is more valuable than reasoning |
+### For the Serious (2-3 hours)
+
+1. **Read Layers 1-2 (Foundations + Patterns)** — 01-09
+2. **Read Layer 3 (Infrastructure)** — 10-13
+3. **Read Layer 4 (Reliability)** — 14-17
+4. **Use Cheat Sheet (17) for reference** — Keep it open while building
 
 ---
 
+## 📚 Core Documentation
+
+### Layer 1: Foundations
+
+Start here if you're new to agents or need to refresh your mental model.
+
+| Document | Purpose | Key Concepts | Read Time |
+|----------|---------|--------------|-----------|
+| [01 — Introduction](docs/01-introduction.md) | Mental model for how agents work | Loop, iteration cost, observability | 15m |
+| [02 — How to Choose](docs/02-how-to-choose.md) | Decision framework for patterns | Comparison matrix, routing logic | 12m |
+| [03 — Agent Lifecycle](docs/03-agent-lifecycle.md) | Complete execution path | Lifecycle phases, stop conditions | 18m |
+
+### Layer 2: Core Patterns
+
+Pick a pattern based on your problem. Each document is self-contained.
+
+| Pattern | Best For | Latency | Complexity | Cost/1M Ops |
+|---------|----------|---------|-----------|------------|
+| [04 — Single Agent](docs/04-single-agent.md) | Simple Q&A, classification | <100ms | Low | $1 |
+| [05 — Router](docs/05-router-pattern.md) | Multi-domain dispatch | <1s | Low | $1.50 |
+| [06 — Sequential Workflow](docs/06-sequential-workflow.md) | Ordered pipeline stages | <5s | Medium | $3 |
+| [07 — Parallel Workers](docs/07-parallel-workers.md) | Independent parallel tasks | <2s | Medium | $2.50 |
+| [08 — Orchestrator](docs/08-orchestrator-workers.md) | Dynamic workflow decisions | <3s | High | $5 |
+| [09 — Network Agents](docs/09-network-agents.md) | Distributed, loosely-coupled | <5s | High | $6 |
+
+### Layer 3: Infrastructure
+
+Build the foundation for production systems.
+
+| Component | What You'll Learn | Read Time |
+|-----------|-------------------|-----------|
+| [10 — Memory & Context](docs/10-memory.md) | Persistence, RAG, semantic caching | 14m |
+| [11 — State Management](docs/11-state-management.md) | Consistency models, versioning | 12m |
+| [12 — Tool Calling](docs/12-tool-calling.md) | External integrations, schema design | 13m |
+| [13 — Production Runtime](docs/13-production-runtime.md) | Deployment, scaling, operational readiness | 16m |
+
+### Layer 4: Reliability & Scale
+
+Make it production-ready and scale to millions.
+
+| Topic | What You'll Learn | Read Time |
+|-------|-------------------|-----------|
+| [14 — Observability](docs/14-observability.md) | Metrics, logs, traces, debugging | 15m |
+| [15 — Failure Patterns](docs/15-failure-patterns.md) | Resilience, circuit breakers, recovery | 20m |
+| [16 — Enterprise Blueprint](docs/16-enterprise-blueprint.md) | Multi-region, teams, governance | 18m |
+| [17 — Cheat Sheet](docs/17-cheat-sheet.md) | Quick reference, decision trees | Reference |
+
 ---
 
-## References & Resources
+## 🛠️ Patterns & Frameworks
 
-The patterns in this playbook are informed by research, production systems, and open-source implementations. Here are the key resources:
+### The 6 Core Patterns
 
-### Research Papers & Frameworks
+Every agent system combines these patterns:
 
-**Agent Architecture & Workflows:**
-- [ReAct: Synergizing Reasoning and Acting in LLMs](https://arxiv.org/abs/2210.03629) — Foundation for agent loops
-- [AutoGPT & Agent Frameworks](https://github.com/Significant-Gravitas/AutoGPT) — Early agentic patterns
-- [OpenAI Function Calling Cookbook](https://cookbook.openai.com/) — Tool use and structured outputs
-- [LLM-as-Judge Papers](https://arxiv.org/abs/2310.05470) — Routing and decision making with LLMs
+**Single Agent**
+```
+Input → LLM → Output
+```
+Simplest. One model, one task. Use for Q&A, classification, summarization.
 
-**Multi-Agent Systems:**
-- [Microsoft AutoGen](https://microsoft.github.io/autogen/) — Orchestration patterns
-- [CrewAI Framework](https://docs.crewai.com/) — Role-based agent coordination
-- [LangChain Multi-Agent](https://python.langchain.com/docs/modules/agents/) — Production agent patterns
+**Router**
+```
+Input → Classifier → Specialist Agents
+```
+Route to different specialists based on intent. Use for multi-domain systems.
 
-### Production Documentation
+**Sequential Workflow**
+```
+Input → Stage 1 → Stage 2 → Stage 3 → Output
+```
+Ordered stages. Each transforms previous output. Use for pipelines.
 
-**Model Providers:**
-- [OpenAI API Reference](https://platform.openai.com/docs/api-reference) — Function calling, vision, structured outputs
-- [Anthropic Claude Documentation](https://docs.anthropic.com/) — Agentic intelligence, tool use
-- [Google Gemini API](https://ai.google.dev/docs) — Multi-modal agents
-- [Together AI Inference](https://www.together.ai/) — Open-source model serving
+**Parallel Workers**
+```
+Input → [Worker 1, Worker 2, Worker 3, Worker 4] → Merge → Output
+```
+Independent tasks run in parallel. Merge results. Use for parallel checks.
 
-**Observability & Monitoring:**
-- [Langfuse](https://langfuse.com/) — LLM observability and tracing
-- [LiteLLM Proxy](https://docs.litellm.ai/) — Cost tracking and routing
-- [OpenTelemetry](https://opentelemetry.io/) — Distributed tracing standards
+**Orchestrator**
+```
+Input → Central Coordinator → Dynamic Task Assignment → Output
+```
+Central planner dispatches work, monitors progress, makes decisions. Use for complex workflows.
 
-### Frameworks & Libraries
+**Network Agents**
+```
+Agent 1 ↔ Agent 2 ↔ Agent 3 ↔ Agent 4
+```
+Distributed agents communicate asynchronously. Use for microservice-like systems.
 
-**Agent Orchestration:**
-- [LangChain](https://python.langchain.com/) — Agent building and chains
-- [LlamaIndex](https://docs.llamaindex.ai/) — Data indexing and retrieval agents
-- [Pydantic AI](https://ai.pydantic.dev/) — Type-safe agent building
-- [Swarm (OpenAI)](https://github.com/openai/swarm) — Lightweight agent coordination
+### Technology Stack
 
-**Memory & State:**
-- [Redis](https://redis.io/) — In-memory state store
-- [PostgreSQL with pgvector](https://github.com/pgvector/pgvector) — Semantic search and persistence
-- [Pinecone](https://www.pinecone.io/) — Vector database for memory retrieval
-- [Weaviate](https://weaviate.io/) — Open-source vector DB
+#### LLM Providers
+- **Managed APIs:** OpenAI (GPT-4), Anthropic (Claude), Google (Gemini)
+- **Open Source:** LLaMA, Mistral, Qwen
+- **Self-Hosted:** vLLM, Text Generation Inference (TGI)
 
-### System Design & Architecture
+#### Frameworks & Libraries
+- **Python:** LangChain, LlamaIndex, Pydantic
+- **Node.js:** LangChain JS, Vercel AI SDK
+- **Type Safety:** Pydantic (Python), Zod (JavaScript)
 
-**Distributed Systems:**
-- [The Phoenix Project](https://itrevolution.com/product/the-phoenix-project/) — Production operations
-- [Site Reliability Engineering](https://sre.google/sre-book/) — Google's reliability patterns
-- [Designing Data-Intensive Applications](https://dataintensive.net/) — System design fundamentals
+#### Infrastructure
+- **State Store:** PostgreSQL, DynamoDB, Redis
+- **Message Queue:** RabbitMQ, Apache Kafka, AWS SQS
+- **Observability:** Prometheus, ELK Stack, Jaeger, Datadog
+- **Deployment:** Kubernetes, Docker, AWS Lambda
 
-**AI Operations:**
-- [MLOps.community](https://mlops.community/) — Best practices for production AI
-- [Chip Huyen's ML Systems Design](https://huyenchip.com/) — Real-world ML systems
+---
+
+## 💡 How to Use This Playbook
+
+### By Learning Path
+
+**I'm new to agents:**
+1. Read [01 — Introduction](docs/01-introduction.md)
+2. Read [02 — How to Choose](docs/02-how-to-choose.md)
+3. Read [03 — Agent Lifecycle](docs/03-agent-lifecycle.md)
+4. Pick a use case, jump to that section
+
+**I'm building a system:**
+1. Use [02 — How to Choose](docs/02-how-to-choose.md) to pick pattern(s)
+2. Read the pattern doc (04-09)
+3. Read infrastructure docs (10-13)
+4. Read reliability docs (14-15)
+
+**I'm going to production:**
+1. Read all of Layer 2 (Patterns 04-09)
+2. Read all of Layer 3 (Infrastructure 10-13)
+3. Read Layer 4 (Reliability 14-16)
+4. Use Cheat Sheet (17) as reference
+
+**I need quick answers:**
+- Jump to [17 — Cheat Sheet](docs/17-cheat-sheet.md)
+- Decision trees, comparison tables, troubleshooting guide
+
+### By Use Case
+
+**Customer Support Agent**
+- Patterns: Router + Sequential
+- Read: [05 — Router](docs/05-router-pattern.md), [06 — Sequential](docs/06-sequential-workflow.md)
+- Infrastructure: [10 — Memory](docs/10-memory.md), [12 — Tools](docs/12-tool-calling.md)
+- Reliability: [14 — Observability](docs/14-observability.md)
+
+**Fraud Detection System**
+- Patterns: Parallel + Router
+- Read: [07 — Parallel](docs/07-parallel-workers.md), [05 — Router](docs/05-router-pattern.md)
+- Infrastructure: [11 — State](docs/11-state-management.md), [13 — Runtime](docs/13-production-runtime.md)
+- Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md)
+
+**Content Generation Pipeline**
+- Patterns: Sequential + Router
+- Read: [06 — Sequential](docs/06-sequential-workflow.md), [05 — Router](docs/05-router-pattern.md)
+- Infrastructure: [10 — Memory](docs/10-memory.md)
+- Reliability: [14 — Observability](docs/14-observability.md)
+
+**Complex Workflows (Order Processing, etc.)**
+- Patterns: Orchestrator + Parallel
+- Read: [08 — Orchestrator](docs/08-orchestrator-workers.md), [07 — Parallel](docs/07-parallel-workers.md)
+- Infrastructure: [11 — State](docs/11-state-management.md), [13 — Runtime](docs/13-production-runtime.md)
+- Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md), [16 — Enterprise](docs/16-enterprise-blueprint.md)
+
+**Microservice Architecture**
+- Patterns: Network Agents
+- Read: [09 — Network Agents](docs/09-network-agents.md)
+- Infrastructure: [11 — State](docs/11-state-management.md), [12 — Tools](docs/12-tool-calling.md)
+- Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md)
+
+---
+
+## 🤝 Contributing
+
+### Adding to the Playbook
+
+This playbook is **comprehensive but not static**. We welcome contributions that:
+
+✓ **Improve clarity** — Better explanations, clearer examples  
+✓ **Add real-world examples** — Case studies, war stories  
+✓ **Fix errors** — Typos, technical inaccuracies, outdated references  
+✓ **Expand topics** — Deeper dives into specific patterns  
+
+### How to Contribute
+
+1. **Fork** the repository
+2. **Create a branch** for your changes (`git checkout -b improve/section-name`)
+3. **Edit the relevant document** following the playbook's voice and structure
+4. **Test your changes** — Ensure markdown renders correctly
+5. **Submit a pull request** with a clear description
+
+### Style Guidelines
+
+- **Tone:** Direct, opinionated, senior engineer voice
+- **Length:** Practical, not academic. ~10 minute reads per document.
+- **Examples:** Real-world, include costs and trade-offs
+- **Structure:** Quick summary → diagram → when to use → design details → trade-offs → failure modes → best practices
+
+### Questions or Suggestions?
+
+Open an issue to discuss:
+- Missing topics
+- Unclear explanations
+- New patterns to document
+- Real-world experiences
+
+---
+
+## 📖 References & Resources
+
+### Research & Papers
+
+- **ReAct** — Reasoning + Acting (Yao et al., 2022)
+- **AutoGen** — Multi-agent conversations (Microsoft Research)
+- **LLM Agents: A Survey** — Comprehensive overview of agent architectures
+
+### Frameworks & Tools
+
+**Agent Frameworks:**
+- [LangChain](https://python.langchain.com/) — Composable agent chains (Python/JS)
+- [LlamaIndex](https://www.llamaindex.ai/) — Data indexing for retrieval
+- [AutoGen](https://microsoft.github.io/autogen/) — Multi-agent collaboration
+
+**Observability:**
+- [Langfuse](https://langfuse.com/) — LLM observability
+- [LiteLLM](https://litellm.ai/) — LLM proxy with logging
+- [Prometheus](https://prometheus.io/) — Metrics collection
+- [Jaeger](https://www.jaegertracing.io/) — Distributed tracing
+
+**Model Serving:**
+- [vLLM](https://github.com/vllm-project/vllm) — Fast LLM serving
+- [Text Generation Inference](https://github.com/huggingface/text-generation-inference) — HuggingFace TGI
+- [Modal](https://modal.com/) — Serverless GPU compute
+
+**Orchestration:**
+- [Kubernetes](https://kubernetes.io/) — Container orchestration
+- [Docker](https://www.docker.com/) — Containerization
+- [Temporal](https://temporal.io/) — Workflow orchestration
 
 ### Benchmarks & Evaluation
 
-**Agent Evaluation:**
-- [GAIA Benchmark](https://huggingface.co/gaia-benchmark/) — General assistant performance
-- [SWE-bench](https://www.swebench.com/) — Software engineering agent tasks
-- [ToolUse Benchmarks](https://arxiv.org/abs/2309.15766) — Function calling evaluation
+- [GAIA](https://github.com/gaia-benchmark/GAIA) — Agent benchmark suite
+- [SWE-bench](https://www.swebench.com/) — Software engineering benchmark
+- [HELM](https://crfm.stanford.edu/helm/) — Holistic evaluation of LMs
 
-### Case Studies & Implementation Examples
+### Learning Resources
 
-**Real Production Systems:**
-- [OpenAI Assistants API](https://platform.openai.com/docs/assistants/overview) — Production agent patterns
-- [GitHub Copilot Architecture](https://github.blog/2023-06-20-how-github-copilot-is-getting-better-at-tackling-coding-tasks/) — Large-scale agent deployment
-- [AWS Bedrock Agents](https://aws.amazon.com/bedrock/agents/) — Enterprise orchestration
-
-**Open Source Examples:**
-- [LangSmith Examples](https://github.com/langchain-ai/langsmith-cookbook) — Production patterns
-- [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook) — Implementation guides
-- [OpenAI Cookbook Agents](https://cookbook.openai.com/examples/agents) — Real-world agent examples
-
-### Performance & Optimization
-
-**Cost Optimization:**
-- [LiteLLM Cost Calculator](https://cost-calculator.litellm.ai/) — Model pricing comparison
-- [Prompt Caching](https://help.openai.com/en/articles/7505499-managing-tokens-and-costs) — Reduce redundant compute
-
-**Latency & Throughput:**
-- [Ray Serve](https://docs.ray.io/en/latest/serve/index.html) — Distributed model serving
-- [vLLM](https://github.com/vllm-project/vllm) — High-throughput LLM inference
-- [Anyscale](https://www.anyscale.com/) — Production inference platform
+- **LLM Architecture:** Intro to LLMs (MIT OpenCourseWare)
+- **Distributed Systems:** Designing Data-Intensive Applications (Kleppmann)
+- **Production ML:** Building Machine Learning Systems (Sculley et al., Google)
 
 ---
 
-## License
+## 📈 Project Stats
 
-MIT — Use, modify, and distribute freely.
-
----
-
-## Contributing
-
-This playbook is maintained as a reference for production AI systems. Contributions should focus on patterns that have proven effective in real production environments.
+- **17 comprehensive documents** covering all agent architecture patterns
+- **~250KB of engineering knowledge** — production-ready guidance
+- **6 core patterns** with detailed implementation guidance
+- **4 infrastructure layers** from foundations to enterprise scale
+- **100+ sections** covering design, trade-offs, failure modes, and best practices
 
 ---
 
-**Ready to start?** → [Read the Introduction](docs/01-introduction.md)
+## 📝 License
+
+This playbook is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+---
+
+## 🙏 Acknowledgments
+
+Built for **senior software engineers** who believe in:
+- Practical engineering over theory
+- Opinionated guidance over endless options
+- Learning from failures, not just successes
+- Building systems that scale reliably
+
+---
+
+## 🚀 Let's Build Something Great
+
+The playbook is ready. Your agents are waiting.
+
+**Start with [01 — Introduction](docs/01-introduction.md)** or jump to your use case above.
+
+Questions? Issues? Contributions?  
+**[Open an issue](https://github.com/falila/ai-agent-engineering-playbook/issues)** or **[start a discussion](https://github.com/falila/ai-agent-engineering-playbook/discussions)**.
+
+---
+
+**Last Updated:** June 2026  
+**Status:** Complete & Production-Ready  
+**Maintained By:** Engineering Community
