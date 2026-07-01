@@ -16,26 +16,26 @@ This document covers **how to architect memory systems** for agents: what inform
 
 ```mermaid
 graph TD
-    Agent["\ud83e\udde0 Agent<br/>Current Interaction"]
+    Agent["Agent<br/>Current Interaction"]
     
-    Input["\ud83d\udce5 Input:<br/>User Query"]
+    Input["Input:<br/>User Query"]
     
     Input --> Agent
     
-    Agent --> Retrieve["\ud83d\udd0d Retrieve<br/>Semantic Search"]
-    Retrieve --> MemStore["\ud83d\udcbe Memory Store<br/>(Vector DB)"]
-    MemStore --> Context["\ud83d\udccb Retrieved Context<br/>(Top-K Results)"]
+    Agent --> Retrieve[" Retrieve<br/>Semantic Search"]
+    Retrieve --> MemStore["Memory Store<br/>(Vector DB)"]
+    MemStore --> Context["Retrieved Context<br/>(Top-K Results)"]
     
     Context --> Agent
     
-    Agent --> Generate["\ud83e\udde0 Reason & Generate<br/>Using Retrieved Context"]
-    Generate --> Output["\ud83d\udce4 Output:<br/>Response"]
+    Agent --> Generate["Reason & Generate<br/>Using Retrieved Context"]
+    Generate --> Output["Output:<br/>Response"]
     
-    Agent --> Save["\ud83d\udcbe Save<br/>Store Interaction"]
+    Agent --> Save["Save<br/>Store Interaction"]
     Save --> MemStore
     
-    Output --> Output_End["\ud83d\udce4 Return to User\"]
-    Save --> Memory_Store_End["\ud83d\udcbe Update Memory\"]
+    Output --> Output_End["Return to User"]
+    Save --> Memory_Store_End["Update Memory"]
     
     style Agent fill:#fff3e0,color:#000000
     style Input fill:#e3f2fd,color:#000000

@@ -5,8 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/falila/ai-agent-engineering-playbook)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/falila/ai-agent-engineering-playbook)
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-June%202024-blue)]()
-[![Built With](https://img.shields.io/badge/Built%20With-Python%20%7C%20LLM%20Architecture-informational)]()
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-June%202026-blue)]()
 
 ---
 
