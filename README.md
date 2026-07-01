@@ -3,8 +3,9 @@
 > **The senior engineer's handbook for building production-ready AI agent systems at scale.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen)]()
-[![Last Updated](https://img.shields.io/badge/Last%20Updated-June%202026-blue)]()
+[![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com/falila/ai-agent-engineering-playbook)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/falila/ai-agent-engineering-playbook)
+[![Last Updated](https://img.shields.io/badge/Last%20Updated-June%202024-blue)]()
 [![Built With](https://img.shields.io/badge/Built%20With-Python%20%7C%20LLM%20Architecture-informational)]()
 
 ---
@@ -18,6 +19,8 @@
 - [📚 Core Documentation](#core-documentation)
 - [🛠️ Patterns & Frameworks](#patterns--frameworks)
 - [💡 How to Use This Playbook](#how-to-use-this-playbook)
+  - [By Learning Path](#by-learning-path)
+  - [By Use Case](#by-use-case)
 - [🤝 Contributing](#contributing)
 - [📖 References & Resources](#references--resources)
 
@@ -120,6 +123,16 @@ The playbook is organized in four layers, building from fundamentals to enterpri
 3. **Read Layer 4 (Reliability)** — 14-17
 4. **Use Cheat Sheet (17) for reference** — Keep it open while building
 
+### 📍 Navigation Quick Reference
+
+| Your Situation | What to Read |
+|---|---|
+| **New to agents** | Start with Docs 01-03 (Foundations) |
+| **Building a system** | Pick pattern from Docs 04-09, then infrastructure 10-13 |
+| **Going to production** | Read all of Docs 04-16 (Patterns + Infrastructure + Reliability) |
+| **Need quick answers** | Jump to [Doc 17 — Cheat Sheet](docs/17-cheat-sheet.md) |
+| **Looking for examples** | Search in [By Use Case](#by-use-case) section below |
+
 ---
 
 ## 📚 Core Documentation
@@ -177,37 +190,37 @@ Make it production-ready and scale to millions.
 
 Every agent system combines these patterns:
 
-**Single Agent**
+**① Single Agent**
 ```
 Input → LLM → Output
 ```
 Simplest. One model, one task. Use for Q&A, classification, summarization.
 
-**Router**
+**② Router**
 ```
 Input → Classifier → Specialist Agents
 ```
 Route to different specialists based on intent. Use for multi-domain systems.
 
-**Sequential Workflow**
+**③ Sequential Workflow**
 ```
 Input → Stage 1 → Stage 2 → Stage 3 → Output
 ```
 Ordered stages. Each transforms previous output. Use for pipelines.
 
-**Parallel Workers**
+**④ Parallel Workers**
 ```
 Input → [Worker 1, Worker 2, Worker 3, Worker 4] → Merge → Output
 ```
 Independent tasks run in parallel. Merge results. Use for parallel checks.
 
-**Orchestrator**
+**⑤ Orchestrator**
 ```
 Input → Central Coordinator → Dynamic Task Assignment → Output
 ```
 Central planner dispatches work, monitors progress, makes decisions. Use for complex workflows.
 
-**Network Agents**
+**⑥ Network Agents**
 ```
 Agent 1 ↔ Agent 2 ↔ Agent 3 ↔ Agent 4
 ```
@@ -215,17 +228,17 @@ Distributed agents communicate asynchronously. Use for microservice-like systems
 
 ### Technology Stack
 
-#### LLM Providers
+#### 🔵 LLM Providers
 - **Managed APIs:** OpenAI (GPT-4), Anthropic (Claude), Google (Gemini)
 - **Open Source:** LLaMA, Mistral, Qwen
 - **Self-Hosted:** vLLM, Text Generation Inference (TGI)
 
-#### Frameworks & Libraries
+#### 🟢 Frameworks & Libraries
 - **Python:** LangChain, LlamaIndex, Pydantic
 - **Node.js:** LangChain JS, Vercel AI SDK
 - **Type Safety:** Pydantic (Python), Zod (JavaScript)
 
-#### Infrastructure
+#### 🟣 Infrastructure
 - **State Store:** PostgreSQL, DynamoDB, Redis
 - **Message Queue:** RabbitMQ, Apache Kafka, AWS SQS
 - **Observability:** Prometheus, ELK Stack, Jaeger, Datadog
@@ -261,34 +274,34 @@ Distributed agents communicate asynchronously. Use for microservice-like systems
 
 ### By Use Case
 
-**Customer Support Agent**
-- Patterns: Router + Sequential
-- Read: [05 — Router](docs/05-router-pattern.md), [06 — Sequential](docs/06-sequential-workflow.md)
-- Infrastructure: [10 — Memory](docs/10-memory.md), [12 — Tools](docs/12-tool-calling.md)
+**🎧 Customer Support Agent**
+- Patterns: ② Router + ③ Sequential
+- Read: [05 — Router Pattern](docs/05-router-pattern.md), [06 — Sequential Workflow](docs/06-sequential-workflow.md)
+- Infrastructure: [10 — Memory & Context](docs/10-memory.md), [12 — Tool Calling](docs/12-tool-calling.md)
 - Reliability: [14 — Observability](docs/14-observability.md)
 
-**Fraud Detection System**
-- Patterns: Parallel + Router
-- Read: [07 — Parallel](docs/07-parallel-workers.md), [05 — Router](docs/05-router-pattern.md)
-- Infrastructure: [11 — State](docs/11-state-management.md), [13 — Runtime](docs/13-production-runtime.md)
+**🚨 Fraud Detection System**
+- Patterns: ④ Parallel Workers + ② Router
+- Read: [07 — Parallel Workers](docs/07-parallel-workers.md), [05 — Router Pattern](docs/05-router-pattern.md)
+- Infrastructure: [11 — State Management](docs/11-state-management.md), [13 — Production Runtime](docs/13-production-runtime.md)
 - Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md)
 
-**Content Generation Pipeline**
-- Patterns: Sequential + Router
-- Read: [06 — Sequential](docs/06-sequential-workflow.md), [05 — Router](docs/05-router-pattern.md)
-- Infrastructure: [10 — Memory](docs/10-memory.md)
+**✍️ Content Generation Pipeline**
+- Patterns: ③ Sequential + ② Router
+- Read: [06 — Sequential Workflow](docs/06-sequential-workflow.md), [05 — Router Pattern](docs/05-router-pattern.md)
+- Infrastructure: [10 — Memory & Context](docs/10-memory.md)
 - Reliability: [14 — Observability](docs/14-observability.md)
 
-**Complex Workflows (Order Processing, etc.)**
-- Patterns: Orchestrator + Parallel
-- Read: [08 — Orchestrator](docs/08-orchestrator-workers.md), [07 — Parallel](docs/07-parallel-workers.md)
-- Infrastructure: [11 — State](docs/11-state-management.md), [13 — Runtime](docs/13-production-runtime.md)
-- Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md), [16 — Enterprise](docs/16-enterprise-blueprint.md)
+**📦 Complex Workflows (Order Processing, etc.)**
+- Patterns: ⑤ Orchestrator + ④ Parallel
+- Read: [08 — Orchestrator Workers](docs/08-orchestrator-workers.md), [07 — Parallel Workers](docs/07-parallel-workers.md)
+- Infrastructure: [11 — State Management](docs/11-state-management.md), [13 — Production Runtime](docs/13-production-runtime.md)
+- Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md), [16 — Enterprise Blueprint](docs/16-enterprise-blueprint.md)
 
-**Microservice Architecture**
-- Patterns: Network Agents
+**🔗 Microservice Architecture**
+- Patterns: ⑥ Network Agents
 - Read: [09 — Network Agents](docs/09-network-agents.md)
-- Infrastructure: [11 — State](docs/11-state-management.md), [12 — Tools](docs/12-tool-calling.md)
+- Infrastructure: [11 — State Management](docs/11-state-management.md), [12 — Tool Calling](docs/12-tool-calling.md)
 - Reliability: [15 — Failure Patterns](docs/15-failure-patterns.md)
 
 ---
@@ -411,6 +424,7 @@ Questions? Issues? Contributions?
 
 ---
 
-**Last Updated:** June 2026  
+**Last Updated:** June 2024  
 **Status:** Complete & Production-Ready  
-**Maintained By:** Engineering Community
+**Maintained By:** Engineering Community  
+**Repository:** [github.com/falila/ai-agent-engineering-playbook](https://github.com/falila/ai-agent-engineering-playbook)
