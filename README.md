@@ -423,7 +423,7 @@ Questions? Issues? Contributions?
 
 ---
 
-**Last Updated:** June 2024  
+**Last Updated:** June 2026  
 **Status:** Complete & Production-Ready  
-**Maintained By:** Engineering Community  
+**Maintained By:** [@falila](https://github.com/falila)  
 **Repository:** [github.com/falila/ai-agent-engineering-playbook](https://github.com/falila/ai-agent-engineering-playbook)
